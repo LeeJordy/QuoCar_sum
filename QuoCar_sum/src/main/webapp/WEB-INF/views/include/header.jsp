@@ -14,7 +14,7 @@
 			<li><a href="index.jsp">소개</a></li>
 			<li><a href="list2.jsp">보험지식</a></li>
 			<li><a href="mechanic.jsp">정비</a></li>
-			<li><a href="/Board/List">커뮤니티</a></li>
+			<li><a href="/board/list.do">커뮤니티</a></li>
 			<li><a href="index.jsp">고객센터</a></li>
 			<li><a href="login">로그인</a></li>
 		</ul>

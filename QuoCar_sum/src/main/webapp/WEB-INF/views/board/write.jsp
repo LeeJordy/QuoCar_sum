@@ -90,7 +90,7 @@ h2 {
 
 <body>
 	<h2 style="font-size: 15px; font-weight: bold;">게시글 작성</h2>
-	<form name="form1" method="post" action="${path}/Board/insert.do">
+	<form name="form1" method="post" action="${path}/board/insert.do">
 		<div>
 			<input name="title" id="title" size="100" placeholder="제목을 입력해주세요">
 		</div>

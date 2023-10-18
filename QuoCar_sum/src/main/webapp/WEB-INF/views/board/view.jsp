@@ -21,7 +21,7 @@
 	$(document).ready(function() {
 		$("#btnUpdeteform").click(function() {
 			// 페이지 주소 변경(이동)
-			location.href = "${path}/Board/updateform.do";
+			location.href = "${path}/board/updateform.do";
 		});
 	});
 </script>
@@ -47,7 +47,7 @@
 				<!-- 게시물번호를 hidden으로 처리 -->
 				<!-- <input type="hidden" name="bno" value="${dto.bno}">  -->
 				<a class="btn btn-primary btn-sm"
-					href="${path}/Board/updateform.do?bno=${dto.bno}">수정</a>
+					href="${path}/board/updateform.do?bno=${dto.bno}">수정</a>
 			</div>
 		</div>
 
