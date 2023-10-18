@@ -1,0 +1,24 @@
+
+-- GET_FILENUM() 함수 
+
+-- 시퀀스
+CREATE SEQUENCE  FILENUM_SEQ;
+
+-- ORACLE 함수 생성
+CREATE  OR REPLACE  FUNCTION   GET_FILENUM(
+    
+)
+RETURN
+   NUMBER
+AS  
+   NUM  NUMBER;
+BEGIN
+   
+   SELECT   FILENUM_SEQ.NEXTVAL
+     INTO   NUM
+     FROM   DUAL;
+     
+     RETURN  NUM;
+
+END;
+/   

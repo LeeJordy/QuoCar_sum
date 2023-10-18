@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">  
+ 
+ <insert id="insertUser">
+    INSERT INTO QUSER (
+      ID,
+      NAME,
+      USERID,
+      PASSWORD,
+      GENDER,
+      EMAIL,
+      BIRTHDATE,
+      CAR_MANUFACTURER,
+      CAR_MODEL
+    ) VALUES (
+      (SELECT NVL(MAX(ID),0)+1 FROM QUSER ),
+      #{name},
+      #{userId},
+      #{password},
+      #{gender},
+      #{email},
+      #{birthdate},
+      #{carManufacturer},
+      #{carModel}
+    )
+  </insert>
+  
+     
+</mapper>
+
+
+
+
+
+   

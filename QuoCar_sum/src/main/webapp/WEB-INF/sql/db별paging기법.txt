@@ -1,0 +1,24 @@
+paging
+ - 모든 db 고려
+ - db 에서 한번에 가져올 자료수
+
+1. mysql
+   select * from t where 조건 limit 11, 20 - 속도빠름
+   row_number() - 비추
+
+2. oracle
+   1)  rownum  이용 - 9i 이전방식
+   2)  row_number() - 10g, 11g  
+   3)  fetch offset - 12c - 속도 빠름
+        select val from rownum_test
+         order by 1 desc 
+         fetch first 0.001 percent rows only;  
+
+3.mssql
+   1)  top (n)  
+   2)  row_number()
+   3)   OFFSET ROWS FETCH NEXT - 빠름
+
+
+
+
