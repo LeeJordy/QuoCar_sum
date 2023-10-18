@@ -1,7 +1,9 @@
 package com.quocar.board.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,20 +19,34 @@ import com.quocar.board.service.BoardService;
 import com.quocar.board.vo.BoardVo;
 
 @Controller
-@RequestMapping("/Board")
+@RequestMapping("/board/*")
 public class BoardController {
 	
 	@Autowired
 	private  BoardService  boardService;
     
     // 01. 게시글 목록
-    @RequestMapping("/List")
-    public ModelAndView list() throws Exception{
-        List<BoardVo> list = boardService.listAll();
+    @RequestMapping("list.do")
+    public ModelAndView list(@RequestParam(defaultValue="title") String searchOption,
+            				 @RequestParam(defaultValue="") String keyword) throws Exception{
+        List<BoardVo> list = boardService.listAll(searchOption, keyword);
+        // 레코드의 갯수
+        int count = boardService.countArticle(searchOption, keyword);
         // ModelAndView - 모델과 뷰
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("board/list"); // 뷰를 list.jsp로 설정
+        /*
         mav.addObject("list", list); // 데이터를 저장
+        mav.addObject("count", count);
+    	mav.addObject("searchOption", searchOption);
+    	mav.addObject("keyword", keyword);*/
+        // 데이터를 맵에 저장
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("list", list); // list
+        map.put("count", count); // 레코드의 갯수
+        map.put("searchOption", searchOption); // 검색옵션
+        map.put("keyword", keyword); // 검색키워드
+        mav.addObject("map", map); // 맵에 저장된 데이터를 mav에 저장
+        mav.setViewName("board/list"); // 뷰를 list.jsp로 설정
         return mav; // list.jsp로 List가 전달된다.
     }
     
@@ -46,7 +62,7 @@ public class BoardController {
     @RequestMapping(value="insert.do", method=RequestMethod.POST)
     public String insert(@ModelAttribute BoardVo vo) throws Exception{
         boardService.create(vo);
-        return "redirect:List";
+        return "redirect:list.do";
     }
     
     // 03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
@@ -71,14 +87,14 @@ public class BoardController {
     @RequestMapping(value="update.do", method=RequestMethod.POST)
     public String update(@ModelAttribute BoardVo vo) throws Exception{
         boardService.update(vo);
-        return "redirect:List";
+        return "redirect:list.do";
     }
     
     // 05. 게시글 삭제
     @RequestMapping("delete.do")
     public String delete(@RequestParam int bno) throws Exception{
         boardService.delete(bno);
-        return "redirect:List";
+        return "redirect:list.do";
     }
     
     // 06. 게시글 수정글로 넘어가기

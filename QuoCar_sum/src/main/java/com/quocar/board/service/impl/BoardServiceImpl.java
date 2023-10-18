@@ -60,8 +60,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 05. 게시글 전체 목록
 	@Override
-	public List<BoardVo> listAll() throws Exception {
-		return boardDao.listAll();
+	public List<BoardVo> listAll(String searchOption, String keyword) throws Exception {
+		return boardDao.listAll(searchOption, keyword);
 	}
 
 	// 06. 게시글 조회수 증가
@@ -82,8 +82,13 @@ public class BoardServiceImpl implements BoardService {
 			boardDao.increaseViewcnt(bno);
 			// 세션에 시간을 저장 : "update_time_"+bno는 다른변수와 중복되지 않게 명명한 것
 			session.setAttribute("update_time_" + bno, current_time);
-
 		}
+	}
+	
+	// 07. 게시글 레코드 갯수 boardDao.countArticle메서드 
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception {
+	    return boardDao.countArticle(searchOption, keyword);
 	}
 
 }

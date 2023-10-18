@@ -1,6 +1,8 @@
 package com.quocar.board.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +40,27 @@ public class BoardDaoImpl implements BoardDao {
     }
     // 05. 게시글 전체 목록
     @Override
-    public List<BoardVo> listAll() throws Exception {
-        return sqlSession.selectList("board.listAll");
+    public List<BoardVo> listAll(String searchOption, String keyword) throws Exception {
+    	// 검색옵션, 키워드 맵에 저장
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("searchOption", searchOption);
+        map.put("keyword", keyword);
+    	return sqlSession.selectList("board.listAll", map);
     }
     // 게시글 조회수 증가
     @Override
     public void increaseViewcnt(int bno) throws Exception {
         sqlSession.update("board.increaseViewcnt", bno);
     }
-    
-
+    // 07. 게시글 레코드 갯수
+    @Override
+    public int countArticle(String searchOption, String keyword) throws Exception {
+        // 검색옵션, 키워드 맵에 저장
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("searchOption", searchOption);
+        map.put("keyword", keyword);
+        return sqlSession.selectOne("board.countArticle", map);
+    }
 }
 
 
